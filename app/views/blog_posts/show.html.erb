@@ -1,0 +1,15 @@
+<h1><%= @blog_post.title %></h1>
+<p>By: <%= @blog_post.user.email %></p>
+
+<div>
+  <%= @blog_post.description %>
+</div>
+
+<% if @blog_post.user == current_user %>
+  <%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
+  <%= link_to 'Delete', blog_post_path(@blog_post), 
+      method: :delete, 
+      data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<%= link_to 'Back', blog_posts_path %>
