@@ -1,6 +1,7 @@
 class BlogPostsController < ApplicationController
   before_action :set_blog_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]  
+  before_action :check_blog_post_owner, only: [:edit, :update, :destroy]
 
   def index
     @blog_posts = BlogPost.all
@@ -43,6 +44,12 @@ class BlogPostsController < ApplicationController
 
   def set_blog_post
     @blog_post = BlogPost.find(params[:id])
+  end
+
+  def check_blog_post_owner
+    unless @blog_post.user == current_user
+      redirect_to blog_posts_path, alert: "You are not authorized to perform this action."
+    end
   end
 
   def blog_post_params

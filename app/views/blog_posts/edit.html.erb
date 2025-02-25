@@ -1,6 +1,16 @@
-<h1>Edit Blog Post</h1>
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500">
+        Edit Your Story
+      </h1>
+      <p class="mt-3 text-xl text-gray-500">
+        Make your story even better
+      </p>
+    </div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @blog_post %> |
-<%= link_to 'Back', blog_posts_path %>
+    <!-- Form Partial -->
+    <%= render 'form', blog_post: @blog_post %>
+  </div>
+</div>

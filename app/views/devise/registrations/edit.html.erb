@@ -1,0 +1,87 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <!-- Profile Header -->
+    <div class="bg-white shadow rounded-lg mb-6">
+      <div class="px-4 py-5 sm:p-6">
+        <div class="flex items-center space-x-5">
+          <div class="flex-shrink-0">
+            <div class="relative">
+              <span class="inline-block h-16 w-16 rounded-full overflow-hidden bg-gray-100">
+                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900"><%= current_user.email %></h1>
+            <p class="text-sm text-gray-500">Member since <%= current_user.created_at.strftime("%B %Y") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-6">Edit Profile</h2>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="space-y-6">
+            <!-- Email Field -->
+            <div>
+              <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+                  class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+            </div>
+
+            <!-- New Password Field -->
+            <div>
+              <%= f.label :password, "New Password", class: "block text-sm font-medium text-gray-700" %>
+              <div class="text-xs text-gray-500 mb-1">Leave blank if you don't want to change it</div>
+              <%= f.password_field :password, autocomplete: "new-password",
+                  class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+              <% if @minimum_password_length %>
+                <div class="text-xs text-gray-500 mt-1"><%= @minimum_password_length %> characters minimum</div>
+              <% end %>
+            </div>
+
+            <!-- Password Confirmation Field -->
+            <div>
+              <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                  class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+            </div>
+
+            <!-- Current Password Field -->
+            <div>
+              <%= f.label :current_password, class: "block text-sm font-medium text-gray-700" %>
+              <div class="text-xs text-gray-500 mb-1">We need your current password to confirm changes</div>
+              <%= f.password_field :current_password, autocomplete: "current-password",
+                  class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex items-center justify-between">
+              <%= f.submit "Update", 
+                  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+              
+              <%= button_to "Delete Account", registration_path(resource_name), 
+                  data: { confirm: "Are you sure? This action cannot be undone." }, 
+                  method: :delete, 
+                  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Back Link -->
+    <div class="mt-4 text-center">
+      <%= link_to "Back", :back, 
+          class: "text-sm text-indigo-600 hover:text-indigo-500" %>
+    </div>
+  </div>
+</div>
