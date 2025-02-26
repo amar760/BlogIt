@@ -1,0 +1,66 @@
+<nav class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Left side - Logo -->
+      <div class="flex-shrink-0 flex items-center">
+        <%= link_to root_path, class: "flex items-center" do %>
+          <span class="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+            BlogApp
+          </span>
+        <% end %>
+      </div>
+
+      <!-- Right side - Navigation -->
+      <div class="flex items-center space-x-4">
+        <%= link_to "All Stories", blog_posts_path, 
+            class: "text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium
+                   #{current_page?(blog_posts_path) ? 'text-indigo-600' : ''}" %>
+
+        <% if user_signed_in? %>
+          <%= link_to "Your Stories", blog_posts_path(user: current_user), 
+              class: "text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium
+                     #{params[:user].present? ? 'text-indigo-600' : ''}" %>
+
+          <!-- Profile Dropdown -->
+          <div class="relative ml-3" data-controller="dropdown">
+            <div>
+              <button type="button" 
+                      class="flex items-center max-w-xs rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
+                      data-action="click->dropdown#toggle"
+                      onclick="event.preventDefault(); document.getElementById('user-menu').classList.toggle('hidden');">
+                <span class="inline-block h-8 w-8 rounded-full overflow-hidden bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 p-[2px]">
+                  <span class="block h-full w-full rounded-full bg-white p-[2px]">
+                    <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" 
+                 role="menu" 
+                 data-dropdown-target="menu"
+                 id="user-menu">
+              <%= link_to "Profile Settings", edit_user_registration_path, 
+                  class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", 
+                  role: "menuitem" %>
+              
+              <%= button_to "Sign Out", destroy_user_session_path, 
+                  method: :delete,
+                  class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", 
+                  role: "menuitem" %>
+            </div>
+          </div>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, 
+              class: "text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium" %>
+          
+          <%= link_to "Sign Up", new_user_registration_path, 
+              class: "bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

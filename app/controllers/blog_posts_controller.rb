@@ -4,7 +4,11 @@ class BlogPostsController < ApplicationController
   before_action :check_blog_post_owner, only: [:edit, :update, :destroy]
 
   def index
-    @blog_posts = BlogPost.all
+    @blog_posts = if params[:user].present?
+      BlogPost.where(user: current_user)
+    else
+      BlogPost.all
+    end
   end
 
   def show
