@@ -45,7 +45,7 @@
                         <%= post.created_at.strftime("%B %d, %Y") %>
                       </time>
                       <span class="mx-1">•</span>
-                      <span>5 min read</span>
+                      <span><%= pluralize(post.description.split.size / 200 + 1, 'min') %> read</span>
                     </div>
                   </div>
                 </div>

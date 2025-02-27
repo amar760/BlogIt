@@ -21,12 +21,11 @@
   <body class="bg-gray-50">
     <% unless controller_name == 'sessions' || 
           (controller_name == 'registrations' && action_name.in?(['new', 'edit'])) %>
-      <%= render 'layouts/navbar' %>
+      <%= render 'shared/navbar' %>
     <% end %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+    <%= render 'shared/flash_messages' %>
+
     <%= yield %>
   </body>
 </html>
