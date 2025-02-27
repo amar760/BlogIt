@@ -1,0 +1,21 @@
+.social-share-button {
+    display: flex;
+    gap: 0.75rem;
+}
+  
+.social-share-button .ssb-icon {
+    display: inline-block;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    background-size: 40px !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #000;
+}
+
+.social-share-button .ssb-icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
