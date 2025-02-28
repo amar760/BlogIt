@@ -2,6 +2,3 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "social-share-button"
-import "social-share-button/telegram"
-import "social-share-button/whatsapp"
-import "social-share-button/linkedin"

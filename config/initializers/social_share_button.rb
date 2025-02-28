@@ -1,3 +1,3 @@
 SocialShareButton.configure do |config|
-  config.allow_sites = %w(telegram whatsapp linkedin)
+  config.allow_sites = %w(telegram whatsapp_web linkedin)
 end
