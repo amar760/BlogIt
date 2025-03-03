@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :blog_posts
+  has_many :liked_blog_posts, through: :likes, source: :blog_post
 end

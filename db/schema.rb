@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_064220) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_03_062057) do
   create_table "blog_posts", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -19,6 +19,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_064220) do
     t.datetime "updated_at", null: false
     t.integer "views", default: 0
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "blog_post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_post_id"], name: "index_likes_on_blog_post_id"
+    t.index ["user_id", "blog_post_id"], name: "index_likes_on_user_id_and_blog_post_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,4 +44,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_064220) do
   end
 
   add_foreign_key "blog_posts", "users"
+  add_foreign_key "likes", "blog_posts"
+  add_foreign_key "likes", "users"
 end
