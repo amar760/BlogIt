@@ -63,4 +63,6 @@ gem "devise", "~> 4.9"
 
 gem "tailwindcss-rails", "~> 4.1"
 
-gem 'social-share-button'
+group :development, :test do
+  gem 'rspec-rails', '~> 7.0.0'
+end
