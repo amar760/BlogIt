@@ -5,9 +5,9 @@ class BlogPostsController < ApplicationController
 
   def index
     @blog_posts = if params[:user].present?
-      BlogPost.where(user: current_user)
+      BlogPost.where(user: current_user).reverse
     else
-      BlogPost.all
+      BlogPost.all.reverse
     end
   end
 
