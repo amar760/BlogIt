@@ -9,8 +9,8 @@ RSpec.describe "BlogPostsControllers", type: :request do
     end
 
     it "should return a list of blog posts for a specific user" do
-      user = User.create(email: "test@example.com", password: "password")
-      blog_post = BlogPost.create(title: "Test Post", description: "Test Body", user: user)
+      user = create(:user)
+      blog_post = create(:blog_post, user: user)
       get blog_posts_path(user: user)
       expect(response).to have_http_status(:success)
     end
@@ -18,8 +18,8 @@ RSpec.describe "BlogPostsControllers", type: :request do
 
   describe "GET /blog_posts/:id" do
     it "should return a single blog post" do
-      user = User.create(email: "test@example.com", password: "password")
-      blog_post = BlogPost.create(title: "Test Post", description: "Test Body", user: user)
+      user = create(:user)
+      blog_post = create(:blog_post, user: user)
       get blog_post_path(blog_post)
       expect(response).to have_http_status(:success)
       expect(response.body).to include(blog_post.title)
@@ -29,7 +29,7 @@ RSpec.describe "BlogPostsControllers", type: :request do
 
   describe "GET /blog_posts/new" do
     it "should return a new blog post form" do
-      user = User.create(email: "test@example.com", password: "password")
+      user = create(:user)
       user_session_path user
       get new_blog_post_path
       expect(response).to have_http_status(:redirect)
@@ -44,7 +44,7 @@ RSpec.describe "BlogPostsControllers", type: :request do
   describe "POST /blog_posts" do
 
     it "should create a new blog post" do
-      user = User.create(email: "test@example.com", password: "password")
+      user = create(:user)
      
       post user_session_path, params: { user: {email: user.email, password: user.password} }
       post blog_posts_path, params: { blog_post: { title: "Test Post", description: "Test Body", user_id: user.id } }
@@ -57,7 +57,7 @@ RSpec.describe "BlogPostsControllers", type: :request do
     end
 
     it "should stay on the new blog post form if the blog post is not valid" do
-      user = User.create(email: "test@example.com", password: "password")
+      user = create(:user)
      
       post user_session_path, params: { user: {email: user.email, password: user.password} }
       post blog_posts_path, params: { blog_post: { title: "Test Post", user_id: user.id } }
@@ -69,8 +69,8 @@ RSpec.describe "BlogPostsControllers", type: :request do
 
 
   describe "GET /blog_posts/:id/edit" do
-    let!(:user) {User.create(email: "test@example.com", password: "password")}
-    let!(:blog_post) {BlogPost.create(title: "Test Post", description: "Test Body", user: user)}
+    let!(:user) {create(:user)}
+    let!(:blog_post) {create(:blog_post, user: user)}
 
     it "should return the edit form for a blog post" do
       post user_session_path, params: { user: {email: user.email, password: user.password} }
@@ -89,8 +89,8 @@ RSpec.describe "BlogPostsControllers", type: :request do
 
 
   describe "PUT /blog_posts/:id" do
-    let!(:user) {User.create(email: "test@example.com", password: "password")}
-    let!(:blog_post) {BlogPost.create(title: "Test Post", description: "Test Body", user: user)}
+    let!(:user) {create(:user)}
+    let!(:blog_post) {create(:blog_post, user:user)}
 
     it "should update a blog post" do
       post user_session_path, params: { user: {email: user.email, password: user.password} }
@@ -107,7 +107,7 @@ RSpec.describe "BlogPostsControllers", type: :request do
     end
 
     it "should not be editable by other users" do
-      other_user = User.create(email: "other@example.com", password: "password")
+      other_user = create(:user, email: "other@example.com")
       post user_session_path, params: { user: {email: other_user.email, password: other_user.password} }
       put blog_post_path(blog_post), params: { blog_post: { title: "Updated Post", description: "Updated Body" } }
       expect(response).to redirect_to(blog_posts_path)
@@ -117,8 +117,8 @@ RSpec.describe "BlogPostsControllers", type: :request do
 
 
   describe "DELETE /blog_posts/:id" do
-    let!(:user) {User.create(email: "test@example.com", password: "password")}
-    let!(:blog_post) {BlogPost.create(title: "Test Post", description: "Test Body", user: user)}
+    let!(:user) {create(:user)}
+    let!(:blog_post) {create(:blog_post, user: user)}
 
     it "should delete a blog post" do
       post user_session_path, params: { user: {email: user.email, password: user.password} }
@@ -129,7 +129,7 @@ RSpec.describe "BlogPostsControllers", type: :request do
     end
 
     it "should not be deletable by other users" do
-      other_user = User.create(email: "other@example.com", password: "password")
+      other_user = create(:user, email: "other@example.com")
       post user_session_path, params: { user: {email: other_user.email, password: other_user.password} }
       delete blog_post_path(blog_post)
       expect(response).to redirect_to(blog_posts_path)

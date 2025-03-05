@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :request do
 
 
   describe "Login" do
-    let!(:user) {User.create(email: "test@example.com", password: "password")}
+    let!(:user) {create(:user)}
     
     it "should log in a user with valid credentials" do
       post user_session_path, params: {user: {email: "test@example.com", password: "password"}}
@@ -35,6 +35,7 @@ RSpec.describe "Users", type: :request do
     end
   end
 
+
   describe "Logout" do
     it "should log out a user" do
       post user_session_path, params: { user: { email: "test@example.com", password: "password123" } }
@@ -46,11 +47,11 @@ RSpec.describe "Users", type: :request do
 
 
   describe "Protected Routes" do
-    let!(:user) {User.create(email: "test@example.com", password: "password")}
-    let!(:blog_post) {BlogPost.create(title: "Test Post", description: "Test Body", user_id: user.id)}
+    let!(:user) {create(:user)}
+    let!(:blog_post) {create(:blog_post, user: user)}
 
     it "redirects to sign in page when accessing unauthenticated routes" do
-      get edit_blog_post_url(1)
+      get edit_blog_post_url(blog_post.id)
       expect(response).to redirect_to(new_user_session_path)
     end
   end
