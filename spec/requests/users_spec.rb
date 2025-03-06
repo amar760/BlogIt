@@ -45,6 +45,35 @@ RSpec.describe "Users", type: :request do
     end
   end
 
+  describe "User Profile" do
+    let!(:user) {create(:user)}
+
+    it "should show the user profile" do
+      post user_session_path, params: { user: { email: user.email, password: user.password } }
+      get edit_user_registration_path(user)
+      expect(response).to have_http_status(:success)
+    end
+
+    it "should update the user profile" do
+      post user_session_path, params: { user: { email: user.email, password: user.password } }
+      patch user_registration_path, params: { user: { email: "other@example.com", password: user.password, password_confirmation: user.password, current_password: user.password }}
+      expect(response).to have_http_status(:redirect)
+      expect(user.reload.email).to eq("other@example.com")
+    end
+  end
+
+
+  describe "Delete User" do
+    let!(:user) {create(:user)}
+
+    it "should delete the user" do
+      post user_session_path, params: { user: { email: user.email, password: user.password } }
+      delete user_registration_path(user: { current_password: user.password })
+      expect(response).to have_http_status(:redirect)
+      expect(User.exists?(user.id)).to be_falsey
+    end
+  end
+
 
   describe "Protected Routes" do
     let!(:user) {create(:user)}
