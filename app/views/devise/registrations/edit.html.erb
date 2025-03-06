@@ -22,7 +22,7 @@
     </div>
 
     <!-- Edit Form -->
-    <div class="bg-white shadow rounded-lg">
+    <div class="bg-white shadow rounded-lg mb-6">
       <div class="px-4 py-5 sm:p-6">
         <h2 class="text-lg font-medium text-gray-900 mb-6">Edit Profile</h2>
 
@@ -66,25 +66,48 @@
             <!-- Submit Button -->
             <div class="flex items-center justify-between">
               <%= f.submit "Update", 
-                  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>  
             </div>
-
-            <% end %>
-            
           </div>
+        <% end %>
       </div>
-
-    <!-- Delete Account Link -->
-    <div class="mt-6 text-center">
-      <%= link_to "Delete Account", delete_user_registration_path,
-          class: "text-sm text-red-600 hover:text-red-500" %>
     </div>
 
-    <!-- Back Link -->
-    <div class="mt-4 text-center">
-      <%= link_to "Back", :back, 
-          class: "text-sm text-indigo-600 hover:text-indigo-500" %>
+    <div class="bg-white shadow rounded-lg mb-6">
+      <div class="px-4 py-5 sm:p-6">
+        <div class="flex items-center justify-between">
+          <!-- Left side text -->
+          <div class="flex flex-col">
+            <span class="text-base font-medium text-gray-900">Delete Account</span>
+            <span class="text-sm text-gray-500">This action cannot be undone</span>
+          </div>
+
+          <!-- Right side button -->
+          <%= button_to registration_path(resource_name), 
+              data: { turbo_confirm: "Are you sure you want to permanently delete your account?" }, 
+              method: :delete, 
+              class: "inline-flex items-center justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" do %>
+            <svg class="h-4 w-4 mr-1.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Delete Account
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Back Button -->
+    <div class="text-center">
+      <%= link_to :back, 
+          class: "inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200" do %>
+        <svg class="w-4 h-4 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Back
+      <% end %>
     </div>
 
   </div>
 </div>
+
