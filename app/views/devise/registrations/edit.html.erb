@@ -67,15 +67,17 @@
             <div class="flex items-center justify-between">
               <%= f.submit "Update", 
                   class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-              
-              <%= button_to "Delete Account", registration_path(resource_name), 
-                  data: { confirm: "Are you sure? This action cannot be undone." }, 
-                  method: :delete, 
-                  class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
             </div>
+
+            <% end %>
+            
           </div>
-        <% end %>
       </div>
+
+    <!-- Delete Account Link -->
+    <div class="mt-6 text-center">
+      <%= link_to "Delete Account", delete_user_registration_path,
+          class: "text-sm text-red-600 hover:text-red-500" %>
     </div>
 
     <!-- Back Link -->
@@ -83,5 +85,6 @@
       <%= link_to "Back", :back, 
           class: "text-sm text-indigo-600 hover:text-indigo-500" %>
     </div>
+
   </div>
 </div>
