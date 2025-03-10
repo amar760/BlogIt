@@ -12,7 +12,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    
     unless session[":viewed_blog_posts_#{@blog_post.id}"]
       @blog_post.increment_views
       session[":viewed_blog_posts_#{@blog_post.id}"] = true

@@ -13,10 +13,10 @@ default: &default
 development:
   <<: *default
   database: storage/blogging_project_development
-  username: amar.singh
-  password: postgres
-  host: localhost
-  port: 5432
+  username: ENV['DB_USERNAME']
+  password: ENV]'DB_PASSWORD']
+  host: ENV['DB_HOST']
+  port: ENV['DB_PORT']
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,11 +24,10 @@ development:
 test:
   <<: *default
   database: storage/blogging_project_test
-  username: amar.singh
-  password: postgres
-  host: localhost
-  port: 5432
-
+  username: ENV['DB_USERNAME']
+  password: ENV]'DB_PASSWORD']
+  host: ENV['DB_HOST']
+  port: ENV['DB_PORT']
 
 # SQLite3 write its data on the local filesystem, as such it requires
 # persistent disks. If you are deploying to a managed service, you should
