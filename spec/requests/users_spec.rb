@@ -80,7 +80,7 @@ RSpec.describe "Users", type: :request do
     let!(:blog_post) {create(:blog_post, user: user)}
 
     it "redirects to sign in page when accessing unauthenticated routes" do
-      get edit_blog_post_url(blog_post.id)
+      get edit_blog_post_path(blog_post.id)
       expect(response).to redirect_to(new_user_session_path)
     end
   end
