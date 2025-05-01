@@ -66,7 +66,7 @@ gem "devise", "~> 4.9"
 gem "tailwindcss-rails", "~> 4.1"
 
 group :development, :test do
-  gem 'rspec-rails', '~> 7.0.0'
+  gem 'rspec-rails', '~> 8.0.0'
 end
 
 group :development, :test do
